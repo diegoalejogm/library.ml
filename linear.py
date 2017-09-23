@@ -37,23 +37,18 @@ class LinearRegression:
         # Initialize weights for the first time
         if not hasattr(self, 'w'):
             weights_shape = (self.M, 1)
-            self.w = np.zeros( weights_shape )
+            self.w = np.zeros(weights_shape)
         # Calculate phi for current x
-        # print(x)
         phi_x = self.__apply_basis_function__(x)
-        # print(phi_x)
         phi_x = self.__as_2d_array__(phi_x)
         # Calculate prediction y = transpose(w) * phi_x
         prediction = np.dot(np.transpose(self.w), phi_x)
-
         # Calculate error for current iteration
         error = np.subtract(t, prediction)
         # Calculate gradient for current iteration
         error_gradient = error * phi_x
         # Update weights
-#        print(self.learning_rate * error_gradient)
         self.w = np.add(self.w, self.learning_rate * error_gradient)
-        print(self.w)
 
     def __fit_non_sequential__(self, X, Y):
         # Number of rows in X
@@ -93,26 +88,28 @@ class LinearRegression:
         else:
             return a
 
-# # Quick test
-# my_X = np.array([1, 2, 3])
-# my_y = np.array([6, 7, 8])
-# my_t = np.array([10, 100, -29, 13, 14])
-# model = LinearRegression()
-# model.fit(my_X, my_y)
-# p = model.predict(my_t)
-# print(p)
+# Correct solution
+sol = np.array([[25.], [205.], [-53.], [31.], [33.]])
+sol_weights = np.array([5,2])
 
-# model = LinearRegression(learning_rate=0.0000001)
-# my_X = np.array(range(1000000))
-# print(my_X)
-# my_y = my_X + 5
-# print(my_y)
-# for i in range(len(my_X)):
-#     model.fit(my_X[i], my_y[i])
+# Non sequential learning test
+my_X = np.array([1, 2, 3])
+my_y = 5 + my_X * 2
+my_t = np.array([10, 100, -29, 13, 14])
+model = LinearRegression()
+model.fit(my_X, my_y)
+p = model.predict(my_t)
+np.testing.assert_array_almost_equal(sol, p)
+print('Predictions Non Sequential:\n{}'.format(p))
 
-# my_t = np.array([10, 100, -29, 13, 14])
-# model.fit(my_X[0], my_y[0])
-# model.fit(my_X[1], my_y[1])
-# model.fit(my_X[2], my_y[2])
-# p = model.predict(my_t)
-# print(p)
+# Sequential learning test
+model = LinearRegression(learning_rate=0.001)
+my_X = np.arange(0,5,0.01)
+my_y = 5 + my_X * 2
+for _ in range(100):
+    for i in range(len(my_X)):
+        model.fit(my_X[i], my_y[i])
+my_t = np.array([10, 100, -29, 13, 14])
+p = np.rint(model.predict(my_t))
+np.testing.assert_array_almost_equal(sol, p)
+print('Predictions Sequential:\n{}'.format(p))
