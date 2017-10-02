@@ -2,7 +2,11 @@
 
 Implementation of Probabilistic Machine Learning models learned through the reading of Pattern Recognition and Machine Learning Book.
 
-Handwritten solutions to the book exercises, done by myself, may be found [here](https://www.dropbox.com/sh/mb25knsxraz2j4k/AAB531Meqem09mncNW6TGKkQa?dl=0)
+Handwritten solutions to the book exercises, solved and written by myself, may be found [here](https://www.dropbox.com/sh/mb25knsxraz2j4k/AAB531Meqem09mncNW6TGKkQa?dl=0).
+
+The purpose of this library is to obtain a better understanding of the algorithms, plus using them for 
+teaching goals. This is why the focus of the code developed is to be written in an understandable rather than the most computationally efficient way. 
+
 
 ## Index
 
