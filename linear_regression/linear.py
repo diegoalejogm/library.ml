@@ -1,7 +1,7 @@
 import numpy as np
 
 # Maximum Likelihood (Frequentist)
-class LinearRegression:
+class LeastSquaresLinearRegression:
 
     def __init__(self,  phi=None, learning_rate=None):
         self.phi = phi
@@ -96,14 +96,14 @@ sol_weights = np.array([5,2])
 my_X = np.array([1, 2, 3])
 my_y = 5 + my_X * 2
 my_t = np.array([10, 100, -29, 13, 14])
-model = LinearRegression()
+model = LeastSquaresLinearRegression()
 model.fit(my_X, my_y)
 p = model.predict(my_t)
 np.testing.assert_array_almost_equal(sol, p)
 print('Predictions Non Sequential:\n{}'.format(p))
 
 # Sequential learning test
-model = LinearRegression(learning_rate=0.001)
+model = LeastSquaresLinearRegression(learning_rate=0.001)
 my_X = np.arange(0,5,0.01)
 my_y = 5 + my_X * 2
 for _ in range(100):
